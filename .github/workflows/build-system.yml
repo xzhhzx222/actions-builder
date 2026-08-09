@@ -6,8 +6,8 @@ name: SDK & Image Builder (System)
 
 on:
   workflow_dispatch:
-    # schedule:
-    #   - cron: '0 18 * * 5'
+  # schedule:
+  #   - cron: '0 18 * * 5'
 
 env:
   CONFIG_FILE: shell/.config.build

@@ -8,8 +8,8 @@ name: Delete older workflows
 on:
   # repository_dispatch:
   workflow_dispatch:
-    schedule:
-     - cron: '0 0 * * *'
+  schedule:
+   - cron: '0 0 * * *'
 
 env:
   TZ: Etc/UTC
