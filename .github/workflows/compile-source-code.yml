@@ -9,9 +9,9 @@ on:
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
-  CONFIG_FILE: shell/.config.compile
-  DIY_P1_SH: shell/diy-part1.sh
-  DIY_P2_SH: shell/diy-part2.sh
+  CONFIG_FILE: shells/.config.compile
+  DIY_P1_SH: shells/diy-part1.sh
+  DIY_P2_SH: shells/diy-part2.sh
   TZ: Asia/Shanghai
   CCACHE_DIR: /workdir/openwrt/.ccache
   CUSTOM_DIR: package/xzhhzx222
@@ -85,7 +85,7 @@ jobs:
 
           echo "::group::install depends"
           sudo apt-get -y update
-          sudo apt-get -y install $(cat shell/depends.compile)
+          sudo apt-get -y install $(cat shells/depends.compile)
           sudo apt-get -y autoremove --purge
           sudo apt-get -y clean
           echo "::endgroup::"
@@ -98,7 +98,7 @@ jobs:
           path: |
             openwrt/.ccache
             openwrt/dl
-          # key: cache-compile-${{ matrix.target }}-${{ hashFiles('shell/.config.compile') }}
+          # key: cache-compile-${{ matrix.target }}-${{ hashFiles('shells/.config.compile') }}
           key: cache-compile-${{ matrix.target }}-${{ hashFiles(env.CONFIG_FILE) }}
           restore-keys: |
             cache-compile-${{ matrix.target }}-

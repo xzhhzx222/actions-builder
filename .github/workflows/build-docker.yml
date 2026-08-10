@@ -10,11 +10,11 @@ on:
     - cron: '0 18 * * 5'
 
 env:
-  CONFIG_FILE: shell/.config.build
-  DIY_P1_SH: shell/diy-part1.sh
-  DIY_P2_SH: shell/diy-part2.sh
-  MK_PKG_SH: shell/make-packages.sh
-  MK_IMG_SH: shell/make-images.sh
+  CONFIG_FILE: shells/.config.build
+  DIY_P1_SH: shells/diy-part1.sh
+  DIY_P2_SH: shells/diy-part2.sh
+  MK_PKG_SH: shells/make-packages.sh
+  MK_IMG_SH: shells/make-images.sh
   TZ: Asia/Shanghai
 
 jobs:
@@ -116,7 +116,7 @@ jobs:
             --user root \
             -v "./sdk/bin:${BUILD_DIR}/bin" \
             -v "./sdk/${CUSTOM_DIR}:${BUILD_DIR}/${CUSTOM_DIR}" \
-            -v "./shell:${BUILD_DIR}/shell" \
+            -v "./shells:${BUILD_DIR}/shells" \
             -e BUILD_DIR="${BUILD_DIR}" \
             -e CUSTOM_DIR="${CUSTOM_DIR}" \
             -e CONFIG_FILE="${CONFIG_FILE}" \
@@ -161,7 +161,7 @@ jobs:
             -v "./ib/bin:${BUILD_DIR}/bin" \
             -v "./ib/files:${BUILD_DIR}/files" \
             -v "./ib/packages:${BUILD_DIR}/packages" \
-            -v "./shell:${BUILD_DIR}/shell" \
+            -v "./shells:${BUILD_DIR}/shells" \
             -e TARGET_PROFILE="${TARGET_PROFILE}" \
             -e MK_IMG_SH="${MK_IMG_SH}" \
             ${TARGET_DISTRO}/imagebuilder:${TARGET_PLATFORM}-${DOCKER_VERSION} \

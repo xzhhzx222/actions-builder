@@ -10,11 +10,11 @@ on:
   #   - cron: '0 18 * * 5'
 
 env:
-  CONFIG_FILE: shell/.config.build
-  DIY_P1_SH: shell/diy-part1.sh
-  DIY_P2_SH: shell/diy-part2.sh
-  MK_PKG_SH: shell/make-packages.sh
-  MK_IMG_SH: shell/make-images.sh
+  CONFIG_FILE: shells/.config.build
+  DIY_P1_SH: shells/diy-part1.sh
+  DIY_P2_SH: shells/diy-part2.sh
+  MK_PKG_SH: shells/make-packages.sh
+  MK_IMG_SH: shells/make-images.sh
   TZ: Asia/Shanghai
 
 jobs:
@@ -86,11 +86,11 @@ jobs:
           ln -sf /workdir/sdk $GITHUB_WORKSPACE/sdk
           ln -sf /workdir/ib $GITHUB_WORKSPACE/ib
           cp -rf $GITHUB_WORKSPACE/private/files/ ib/
-          cp -rf $GITHUB_WORKSPACE/shell/ sdk/
+          cp -rf $GITHUB_WORKSPACE/shells/ sdk/
 
           echo "::group::install depends"
           sudo apt-get -y update
-          sudo apt-get -y install $(cat sdk/shell/depends.build) $(cat sdk/shell/depends.compile)
+          sudo apt-get -y install $(cat sdk/shells/depends.build) $(cat sdk/shells/depends.compile)
           sudo apt-get -y autoremove --purge
           sudo apt-get -y clean
           echo "::endgroup::"
