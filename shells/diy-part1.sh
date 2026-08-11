@@ -71,7 +71,7 @@ git clone https://github.com/tty228/luci-app-wechatpush.git "${CUSTOM_DIR}/luci-
 
 # 修改tty228/luci-app-wechatpush
 # sed -i 's/\${str_linefeed}/\\\\n/g' "${CUSTOM_DIR}/luci-app-wechatpush/root/usr/share/wechatpush/api/qywx_mpnews.json"
-sed -i 's/\${1} ${nowtime}/${nowtime}\\\\n${1}/g' "${CUSTOM_DIR}/luci-app-wechatpush/root/usr/share/wechatpush/api/qywx_mpnews.json"
+# sed -i 's/\${1} ${nowtime}/${nowtime}\\\\n${1}/g' "${CUSTOM_DIR}/luci-app-wechatpush/root/usr/share/wechatpush/api/qywx_mpnews.json"
 
 # 添加sundaqiang/openwrt-packages
 git clone https://github.com/sundaqiang/openwrt-packages.git package/sundaqiang/openwrt-packages
