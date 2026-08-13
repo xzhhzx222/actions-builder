@@ -6,15 +6,8 @@ name: TEST
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 18 * * 5'
 
 env:
-  # CONFIG_FILE: shells/.config.build
-  # DIY_P1_SH: shells/diy-part1.sh
-  # DIY_P2_SH: shells/diy-part2.sh
-  # MK_PKG_SH: shells/make-packages.sh
-  # MK_IMG_SH: shells/make-images.sh
   TZ: Asia/Shanghai
 
 jobs:
@@ -22,15 +15,6 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: write
-
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     target:
-    #       - "immortalwrt/25.12.1+x86-64/generic"
-    #       - "immortalwrt/24.10.6+x86-64/generic"
-    #       # - "immortalwrt/25.12.1+rockchip-armv8/radxa_e52c"
-    #       # - "immortalwrt/24.10.6+rockchip-armv8/radxa_e52c"
 
     name: TEST
 
@@ -46,184 +30,8 @@ jobs:
           path: private
           sparse-checkout: files
 
-      - name: Create virtual disk for extended storage
+      - name: Checkout Result
         run: |
-          # mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
-          # root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
-          # sudo truncate -s "${mnt_size}"G /mnt/mnt.img
-          # sudo truncate -s "${root_size}"G /root.img
-          # sudo losetup /dev/loop6 /mnt/mnt.img
-          # sudo losetup /dev/loop7 /root.img
-          # sudo pvcreate /dev/loop6
-          # sudo pvcreate /dev/loop7
-          # sudo vgcreate github /dev/loop6 /dev/loop7
-          # sudo lvcreate -n runner -l 100%FREE github
-          # sudo mkfs.xfs -f -i sparse=0 -b size=4096 /dev/github/runner
-          # sudo mkdir -p /workdir
-          # sudo mount /dev/github/runner /workdir
-          # sudo chown -R runner:runner /workdir
           df -Th
           ls -lah $GITHUB_WORKSPACE
           ls -lah $GITHUB_WORKSPACE/private
-      #
-      # - name: Initialization environment
-      #   working-directory: /workdir
-      #   run: |
-      #     BUILD_REPO="$(echo "${{ matrix.target }}" | cut -d'+' -f1)"
-      #     BUILD_TARGET="$(echo "${{ matrix.target }}" | cut -d'+' -f2)"
-      #
-      #     TARGET_DISTRO="$(echo "${BUILD_REPO}" | cut -d'/' -f1)"
-      #     TARGET_VERSION="$(echo "${BUILD_REPO}" | cut -d'/' -f2)"
-      #     TARGET_PLATFORM="$(echo "${BUILD_TARGET}" | cut -d'/' -f1)"
-      #     TARGET_PROFILE="$(echo "${BUILD_TARGET}" | cut -d'/' -f2)"
-      #     TARGET_BOARD="$(echo "${TARGET_PLATFORM}" | cut -d'-' -f1)"
-      #     TARGET_SUBTARGET="$(echo "${TARGET_PLATFORM}" | cut -d'-' -f2)"
-      #
-      #     CUSTOM_DIR="package/xzhhzx222"
-      #     BUILD_DIR="/home/build/${TARGET_DISTRO}"
-      #     DOCKER_VERSION="openwrt-${TARGET_VERSION}"
-      #
-      #     chmod +x "$GITHUB_WORKSPACE/${DIY_P1_SH}" "$GITHUB_WORKSPACE/${DIY_P2_SH}" \
-      #       "$GITHUB_WORKSPACE/${MK_PKG_SH}" "$GITHUB_WORKSPACE/${MK_IMG_SH}"
-      #     mkdir -p "sdk/bin" "sdk/${CUSTOM_DIR}" "ib/bin" "ib/packages"
-      #     ln -sf /workdir/sdk $GITHUB_WORKSPACE/sdk
-      #     ln -sf /workdir/ib $GITHUB_WORKSPACE/ib
-      #     cp -rf $GITHUB_WORKSPACE/private/files/ ib/
-      #
-      #     MAIN_URL="https://downloads.${TARGET_DISTRO}.org/releases"
-      #     # LATEST_VERSION="$(curl --retry 3 --retry-all-errors --retry-delay 10 -A "${DL_UA}" \
-      #     #   -fsSL "${MAIN_URL}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | sort -V | tail -n1)"
-      #     DL_URL="${MAIN_URL}/${TARGET_VERSION}/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}"
-      #
-      #     echo "::group::docker pull"
-      #     docker pull ${TARGET_DISTRO}/sdk:${TARGET_PLATFORM}-${DOCKER_VERSION}
-      #     docker pull ${TARGET_DISTRO}/imagebuilder:${TARGET_PLATFORM}-${DOCKER_VERSION}
-      #     echo "::endgroup::"
-      #
-      #     echo "BUILD_REPO=${BUILD_REPO}" >> $GITHUB_ENV
-      #     echo "BUILD_TARGET=${BUILD_TARGET}" >> $GITHUB_ENV
-      #     echo "TARGET_DISTRO=${TARGET_DISTRO}" >> $GITHUB_ENV
-      #     echo "TARGET_VERSION=${TARGET_VERSION}" >> $GITHUB_ENV
-      #     echo "TARGET_PLATFORM=${TARGET_PLATFORM}" >> $GITHUB_ENV
-      #     echo "TARGET_PROFILE=${TARGET_PROFILE}" >> $GITHUB_ENV
-      #     echo "TARGET_BOARD=${TARGET_BOARD}" >> $GITHUB_ENV
-      #     echo "TARGET_SUBTARGET=${TARGET_SUBTARGET}" >> $GITHUB_ENV
-      #     echo "CUSTOM_DIR=${CUSTOM_DIR}" >> $GITHUB_ENV
-      #     echo "BUILD_DIR=${BUILD_DIR}" >> $GITHUB_ENV
-      #     echo "DOCKER_VERSION=${DOCKER_VERSION}" >> $GITHUB_ENV
-      #     echo "DL_URL=${DL_URL}" >> $GITHUB_ENV
-      #
-      # - name: Compile the package
-      #   run: |
-      #     docker run --rm -i \
-      #       --user root \
-      #       -v "./sdk/bin:${BUILD_DIR}/bin" \
-      #       -v "./sdk/${CUSTOM_DIR}:${BUILD_DIR}/${CUSTOM_DIR}" \
-      #       -v "./shells:${BUILD_DIR}/shells" \
-      #       -e BUILD_DIR="${BUILD_DIR}" \
-      #       -e CUSTOM_DIR="${CUSTOM_DIR}" \
-      #       -e CONFIG_FILE="${CONFIG_FILE}" \
-      #       -e DIY_P1_SH="${DIY_P1_SH}" \
-      #       -e DIY_P2_SH="${DIY_P2_SH}" \
-      #       -e MK_PKG_SH="${MK_PKG_SH}" \
-      #       ${TARGET_DISTRO}/sdk:${TARGET_PLATFORM}-${DOCKER_VERSION} \
-      #       bash -c '
-      #         pwd && ls -lah
-      #
-      #         echo "::group::install procps"
-      #         apt update && apt install -y procps
-      #         echo "::endgroup::"
-      #
-      #         bash "${MK_PKG_SH}"
-      #       '
-      #
-      # - name: Check compile space usage
-      #   if: (!cancelled())
-      #   run: |
-      #     df -hT
-      #     echo "::group::packages directory list"
-      #     ls -lah sdk/bin/packages/*/ 2>/dev/null || \
-      #       echo "No packages directory found."
-      #     ls -lah sdk/bin/packages/*/*/ 2>/dev/null || \
-      #       echo "No packages found."
-      #     echo "::endgroup::"
-      #
-      # - name: Organize compile files
-      #   id: organize_compile
-      #   run: |
-      #     sudo chown -R runner:runner sdk/bin
-      #     mv -vf sdk/bin/packages/*/*/*.apk ib/packages/ 2>/dev/null || \
-      #       mv -vf sdk/bin/packages/*/*/*.ipk ib/packages/
-      #     echo "status=success" >> $GITHUB_OUTPUT
-      #
-      # - name: Build the firmware
-      #   if: steps.organize_compile.outputs.status == 'success' && !cancelled()
-      #   run: |
-      #     docker run --rm -i \
-      #       --user root \
-      #       -v "./ib/bin:${BUILD_DIR}/bin" \
-      #       -v "./ib/files:${BUILD_DIR}/files" \
-      #       -v "./ib/packages:${BUILD_DIR}/packages" \
-      #       -v "./shells:${BUILD_DIR}/shells" \
-      #       -e TARGET_PROFILE="${TARGET_PROFILE}" \
-      #       -e MK_IMG_SH="${MK_IMG_SH}" \
-      #       ${TARGET_DISTRO}/imagebuilder:${TARGET_PLATFORM}-${DOCKER_VERSION} \
-      #       bash -c '
-      #         pwd && ls -lah
-      #
-      #         bash "${MK_IMG_SH}"
-      #       '
-      #
-      # - name: Check build space usage
-      #   if: (!cancelled())
-      #   run: |
-      #     df -hT
-      #     echo "::group::targets directory list"
-      #     ls -lah ib/bin/targets/*/*/ 2>/dev/null || \
-      #       echo "No targets found."
-      #     echo "::endgroup::"
-      #
-      # - name: Organize build files
-      #   id: organize_build
-      #   run: |
-      #     sudo chown -R runner:runner ib/bin
-      #     cd ib/bin/targets/*/*
-      #     ls -lh sha256sums
-      #     sed -i "/kernel/d" sha256sums
-      #     sed -i "/rootfs/d" sha256sums
-      #     rm -vf *kernel.bin
-      #     rm -vf *rootfs*.gz
-      #     for filename in ${TARGET_DISTRO}-${TARGET_VERSION}-*; do
-      #       [ -e "${filename}" ] && \
-      #         mv -v "${filename}" "openwrt-${filename#${TARGET_DISTRO}-${TARGET_VERSION}-}"
-      #     done
-      #     echo "status=success" >> $GITHUB_OUTPUT
-      #
-      # - name: Commit and push
-      #   if: steps.organize_build.outputs.status == 'success' && !cancelled()
-      #   run: |
-      #     cd private
-      #
-      #     git config user.email "github-actions[bot]@users.noreply.github.com"
-      #     git config user.name "github-action[bot]"
-      #
-      #     git checkout --orphan release-orphan
-      #     git rm -rf .
-      #
-      #     cp -rf $GITHUB_WORKSPACE/ib/bin/targets/*/*/* $GITHUB_WORKSPACE/private/
-      #     {
-      #       echo "# ${BUILD_REPO}"
-      #       echo
-      #       echo "## ${BUILD_TARGET}"
-      #       echo
-      #       echo "* **Method:** ${{ github.workflow }}"
-      #       echo "* **Resource:** <${DL_URL}>"
-      #       echo "* **Release on:** $(date)"
-      #     } > README.md
-      #
-      #     git add -A
-      #     git commit -am "Updated"
-      #
-      #     git branch -M "${{ matrix.target }}"
-      #
-      #     git push -f origin "${{ matrix.target }}"
