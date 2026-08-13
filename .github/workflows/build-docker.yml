@@ -44,6 +44,7 @@ jobs:
           repository: xzhhzx222/actions-private
           token: ${{ secrets.MY_PAT }}
           path: private
+          sparse-checkout: files
 
       - name: Create virtual disk for extended storage
         run: |
