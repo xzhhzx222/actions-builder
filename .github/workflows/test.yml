@@ -29,6 +29,7 @@ jobs:
           token: ${{ secrets.MY_PAT }}
           path: private
           sparse-checkout: files
+          sparse-checkout-cone-mode: false
 
       - name: Checkout Result
         run: |

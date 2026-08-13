@@ -18,8 +18,6 @@
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 
 
-mkdir -p feeds
-
 # 添加friendly-bits/geoip-shell
 git clone https://github.com/friendly-bits/geoip-shell.git package/friendly-bits/geoip-shell
 chmod +x package/friendly-bits/geoip-shell/OpenWrt/prep-owrt-package.sh
