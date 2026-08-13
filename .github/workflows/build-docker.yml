@@ -45,6 +45,7 @@ jobs:
           token: ${{ secrets.MY_PAT }}
           path: private
           sparse-checkout: files
+          sparse-checkout-cone-mode: false
 
       - name: Create virtual disk for extended storage
         run: |
