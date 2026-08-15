@@ -207,6 +207,7 @@ jobs:
           git config user.name "github-action[bot]"
 
           git checkout --orphan release-orphan
+          git sparse-checkout disable
           git rm -rf .
 
           cp -rf $GITHUB_WORKSPACE/ib/bin/targets/*/*/* $GITHUB_WORKSPACE/private/
@@ -221,7 +222,7 @@ jobs:
           } > README.md
 
           git add -A
-          git commit -am "Updated"
+          git commit -m "Updated"
 
           git branch -M "${{ matrix.target }}"
 
