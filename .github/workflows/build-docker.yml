@@ -208,7 +208,7 @@ jobs:
 
           git checkout --orphan release-orphan
           git sparse-checkout disable
-          git rm -rf .
+          git rm -rfq .
 
           cp -rf $GITHUB_WORKSPACE/ib/bin/targets/*/*/* $GITHUB_WORKSPACE/private/
           {
