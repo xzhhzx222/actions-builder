@@ -27,9 +27,9 @@ jobs:
       fail-fast: false
       matrix:
         target:
-          # - "immortalwrt/25.12.1+x86-64/generic"
+          # - "immortalwrt/25.12.2+x86-64/generic"
           # - "immortalwrt/24.10.6+x86-64/generic"
-          - "immortalwrt/25.12.1+rockchip-armv8/radxa_e52c"
+          - "immortalwrt/25.12.2+rockchip-armv8/radxa_e52c"
           - "immortalwrt/24.10.6+rockchip-armv8/radxa_e52c"
 
     name: Build ${{ matrix.target }}
