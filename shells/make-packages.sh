@@ -19,6 +19,14 @@ echo "::group::feeds install luci-base"
 ./scripts/feeds install luci-base
 echo "::endgroup::"
 
+echo "::group::feeds install luci-light"
+./scripts/feeds install luci-light
+echo "::endgroup::"
+
+echo "::group::feeds install strongswan-full"
+./scripts/feeds install strongswan-full
+echo "::endgroup::"
+
 for pkg_name in "${CUSTOM_DIR}"/*/; do
   echo "::group::feeds install $(basename "${pkg_name}")"
   ./scripts/feeds install "$(basename "${pkg_name}")"
@@ -34,8 +42,18 @@ cp -vf "${CONFIG_FILE}" .config
 make defconfig
 echo "::endgroup::"
 
-echo "::group::compile po2lmo"
-sudo make -C "${CUSTOM_DIR}/luci-app-openclash/tools/po2lmo" install
+# echo "::group::compile po2lmo"
+# sudo make -C "${CUSTOM_DIR}/luci-app-openclash/tools/po2lmo" install
+# echo "::endgroup::"
+
+echo "::group::complie luci-light with $(nproc) threads"
+make luci-light compile -j$(($(nproc) + 1)) || \
+make luci-light compile -j1 V=s
+echo "::endgroup::"
+
+echo "::group::complie strongswan-full with $(nproc) threads"
+make strongswan-full compile -j$(($(nproc) + 1)) || \
+make strongswan-full compile -j1 V=s
 echo "::endgroup::"
 
 for pkg_name in "${CUSTOM_DIR}"/*/; do

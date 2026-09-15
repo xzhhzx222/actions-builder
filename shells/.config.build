@@ -9,6 +9,7 @@
 # Packages
 #
 CONFIG_PACKAGE_geoip-shell=m
+CONFIG_PACKAGE_strongswan-full=m
 
 #
 # Collections
