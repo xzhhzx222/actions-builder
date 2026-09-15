@@ -42,10 +42,6 @@ cp -vf "${CONFIG_FILE}" .config
 make defconfig
 echo "::endgroup::"
 
-# echo "::group::compile po2lmo"
-# sudo make -C "${CUSTOM_DIR}/luci-app-openclash/tools/po2lmo" install
-# echo "::endgroup::"
-
 echo "::group::complie package/feeds/luci/luci-light with $(nproc) threads"
 make package/feeds/luci/luci-light/compile -j$(($(nproc) + 1)) || \
 make package/feeds/luci/luci-light/compile -j1 V=s

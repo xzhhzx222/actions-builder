@@ -27,7 +27,5 @@
 # ln -sf "$(pwd)/feeds/luci/collections/luci-light" "${CUSTOM_DIR}/luci-light"
 # sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' "${CUSTOM_DIR}/luci-light/Makefile"
 # sed -i 's|include .*luci\.mk|include $(TOPDIR)/feeds/luci/luci.mk|g' "${CUSTOM_DIR}/luci-light/Makefile"
-
-# sed -i '0,/secs=/s|secs=.*|secs="$$(($$(date --utc +%s) % 86400))"; \\|' feeds/luci/luci.mk
-# sed -i 's|yday=.*|yday="$$(date --utc "+%y.%j")"; \\|' feeds/luci/luci.mk
+sed -i 's|yday=.*|yday="$$(date --utc "+%y.%j")"; \\|' feeds/luci/luci.mk
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' package/feeds/luci/luci-light/Makefile
