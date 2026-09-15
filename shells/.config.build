@@ -9,7 +9,28 @@
 # Packages
 #
 CONFIG_PACKAGE_geoip-shell=m
-CONFIG_PACKAGE_strongswan-full=m
+CONFIG_PACKAGE_strongswan-charon=m
+CONFIG_PACKAGE_strongswan-mod-aes=m
+CONFIG_PACKAGE_strongswan-mod-attr=m
+CONFIG_PACKAGE_strongswan-mod-eap-identity=m
+CONFIG_PACKAGE_strongswan-mod-eap-mschapv2=m
+CONFIG_PACKAGE_strongswan-mod-gcm=m
+CONFIG_PACKAGE_strongswan-mod-gmp=m
+CONFIG_PACKAGE_strongswan-mod-hmac=m
+CONFIG_PACKAGE_strongswan-mod-kernel-netlink=m
+CONFIG_PACKAGE_strongswan-mod-mgf1=m
+CONFIG_PACKAGE_strongswan-mod-openssl=m
+CONFIG_PACKAGE_strongswan-mod-pem=m
+CONFIG_PACKAGE_strongswan-mod-pkcs1=m
+CONFIG_PACKAGE_strongswan-mod-pkcs12=m
+CONFIG_PACKAGE_strongswan-mod-pubkey=m
+CONFIG_PACKAGE_strongswan-mod-random=m
+CONFIG_PACKAGE_strongswan-mod-rc2=m
+CONFIG_PACKAGE_strongswan-mod-sha2=m
+CONFIG_PACKAGE_strongswan-mod-socket-default=m
+CONFIG_PACKAGE_strongswan-mod-x509=m
+CONFIG_PACKAGE_strongswan-pki=m
+CONFIG_PACKAGE_strongswan-swanctl=m
 
 #
 # Collections
