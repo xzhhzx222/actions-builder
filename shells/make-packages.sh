@@ -23,8 +23,8 @@ echo "::group::feeds install luci-light"
 ./scripts/feeds install luci-light
 echo "::endgroup::"
 
-echo "::group::feeds install strongswan-full"
-./scripts/feeds install strongswan-full
+echo "::group::feeds install strongswan"
+./scripts/feeds install strongswan
 echo "::endgroup::"
 
 for pkg_name in "${CUSTOM_DIR}"/*/; do
