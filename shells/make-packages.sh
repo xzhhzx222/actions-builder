@@ -47,13 +47,13 @@ echo "::endgroup::"
 # echo "::endgroup::"
 
 echo "::group::complie luci-light with $(nproc) threads"
-make package/feeds/luci/luci-light compile -j$(($(nproc) + 1)) || \
-make package/feeds/luci/luci-light compile -j1 V=s
+make luci-light/compile -j$(($(nproc) + 1)) || \
+make luci-light/compile -j1 V=s
 echo "::endgroup::"
 
 echo "::group::complie strongswan-full with $(nproc) threads"
-make package/feeds/packages/strongswan-full compile -j$(($(nproc) + 1)) || \
-make package/feeds/packages/strongswan-full compile -j1 V=s
+make strongswan-full/compile -j$(($(nproc) + 1)) || \
+make strongswan-full/compile -j1 V=s
 echo "::endgroup::"
 
 for pkg_name in "${CUSTOM_DIR}"/*/; do
