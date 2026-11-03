@@ -28,7 +28,7 @@ jobs:
       matrix:
         target:
           - "immortalwrt/25.12.2+x86-64/generic"
-          - "immortalwrt/24.10.6+x86-64/generic"
+          # - "immortalwrt/24.10.6+x86-64/generic"
 
     name: Build ${{ matrix.target }}
 

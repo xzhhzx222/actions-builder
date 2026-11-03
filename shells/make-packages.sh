@@ -23,9 +23,9 @@ echo "::group::feeds install luci-light"
 ./scripts/feeds install luci-light
 echo "::endgroup::"
 
-echo "::group::feeds install strongswan"
-./scripts/feeds install strongswan
-echo "::endgroup::"
+# echo "::group::feeds install strongswan"
+# ./scripts/feeds install strongswan
+# echo "::endgroup::"
 
 for pkg_name in "${CUSTOM_DIR}"/*/; do
   echo "::group::feeds install $(basename "${pkg_name}")"
@@ -47,10 +47,10 @@ make package/feeds/luci/luci-light/compile -j$(($(nproc) + 1)) || \
 make package/feeds/luci/luci-light/compile -j1 V=s
 echo "::endgroup::"
 
-echo "::group::complie package/feeds/packages/strongswan with $(nproc) threads"
-make package/feeds/packages/strongswan/compile -j$(($(nproc) + 1)) || \
-make package/feeds/packages/strongswan/compile -j1 V=s
-echo "::endgroup::"
+# echo "::group::complie package/feeds/packages/strongswan with $(nproc) threads"
+# make package/feeds/packages/strongswan/compile -j$(($(nproc) + 1)) || \
+# make package/feeds/packages/strongswan/compile -j1 V=s
+# echo "::endgroup::"
 
 for pkg_name in "${CUSTOM_DIR}"/*/; do
   echo "::group::complie ${pkg_name} with $(nproc) threads"
