@@ -40,7 +40,7 @@ CUSTOM_PKG="\
   \
   -default-settings -default-settings-chn \
   \
-  autocore htop iperf3 tree vim-full \
+  autocore git-http htop iperf3 python3 tree vim-full \
   \
   luci \
   \
